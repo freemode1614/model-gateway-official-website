@@ -37,7 +37,7 @@ const capabilities = [
   },
   {
     title: "Environment config",
-    body: "APP_-prefixed variables exposed to the client via import.meta.env — see .env.example.",
+    body: "WEBAPP_-prefixed variables exposed to the client via import.meta.env — see .env.example.",
   },
   {
     title: "Testing",

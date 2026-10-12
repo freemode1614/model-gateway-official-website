@@ -4,12 +4,19 @@
 
 ```
 .
-├── .env.example          # APP_-prefixed env vars (copy to .env)
+├── .env.example          # WEBAPP_-prefixed env vars (copy to .env)
 ├── vitest.config.ts      # Standalone test config (does NOT load vite.config.ts)
+├── config/
+│   └── base-url.ts       # WEBAPP_BASE_URL normalizer (single source of truth)
+├── Dockerfile            # Build: `docker build .` (context = repo root)
+├── docker/               # Runtime + nginx templates referenced by Dockerfile
+│   ├── entrypoint.sh         # Composes nginx.conf from WEBAPP_BASE_URL at start
+│   ├── root.conf.template
+│   └── subpath.conf.template
 └── app/
     ├── root.tsx              # Root layout + root ErrorBoundary + pre-paint theme script
     ├── entry.client.tsx      # Client bootstrap (hydration, global error hooks)
-    ├── env.d.ts              # ImportMetaEnv typing for APP_* variables
+    ├── env.d.ts              # ImportMetaEnv typing for WEBAPP_* variables
     ├── app.css               # Global styles (Tailwind, class-based dark mode)
     ├── routes.ts             # Route config (flatRoutes)
     ├── routes/               # All route files
@@ -157,7 +164,7 @@ returning `data({}, 404)` so crawlers get a real 404 status.)
 7. **Folder and flat file cannot coexist for the same name.** Either use `folder/route.tsx` OR `folder.tsx`, not both.
 8. **`app/api/petstore.ts` is generated code.** It is rewritten by the `apiCodeGenPlugin` on every dev/build start (and by `pnpm api:gen`). Never hand-edit it — change the spec/config and regenerate.
 9. **Tests live in `app/tests/` only.** Never put `*.test.tsx`/`*.test.ts` in `app/routes/` — fs-routes would register them as routes. `vitest.config.ts` is standalone; it must not load `vite.config.ts` plugins.
-10. **Environment variables use the `APP_` prefix** (not `VITE_`). Exposed via `envOptions.envPrefix` in `vite.config.ts`, typed in `app/env.d.ts`, documented in `.env.example`.
+10. **Environment variables use the `WEBAPP_` prefix** (not `VITE_`). Exposed via `envOptions.envPrefix` in `vite.config.ts`, typed in `app/env.d.ts`, documented in `.env.example`. `WEBAPP_BASE_URL` is additionally read by `react-router.config.ts` from `process.env` at dev/build time to set the router `basename` — a full rebuild is required after changing it. Only single-segment paths are supported (e.g. `/admin`); multi-segment values throw at config time.
 11. **Dark mode is class-based** (`.dark` on `<html>`). Toggle logic lives in `app/components/theme-toggle.tsx`; the pre-paint inline script in `root.tsx` must stay in sync with its `localStorage` key (`"theme"`). New styles need `dark:` variants.
 12. **Reuse `app/components/`** (Page, Button, Card, Badge, Input, Spinner, ThemeToggle) instead of duplicating markup in routes. `buttonClasses(variant)` is exported for styling `<Link>`s.
 
@@ -177,6 +184,29 @@ returning `data({}, 404)` so crawlers get a real 404 status.)
 - The build generates `build/client/` — deploy this directory as static files.
 - The initial HTML is a minimal shell; content appears after JS hydrates.
 - Configure your static host to fallback all routes to `index.html` (SPA routing).
+
+## Sub-path hosting (`WEBAPP_BASE_URL`)
+
+Set `WEBAPP_BASE_URL=<segment>` to serve the SPA under a path prefix
+(e.g. `/admin`). The value is read at dev/build time by three places that
+must stay in sync:
+
+1. **`react-router.config.ts`** — sets React Router's `basename` (drives
+   `<Link to>` / `useNavigate()` matching; route paths are unchanged).
+2. **`vite.config.ts`** — sets Vite's `base` so emitted asset URLs
+   (`/admin/assets/...`), the runtime manifest URL, and the favicon all
+   carry the prefix.
+3. **`docker/entrypoint.sh`** — at container start, renders the active
+   `nginx.conf` from `WEBAPP_BASE_URL`. Empty/unset → `docker/root.conf.template`
+   verbatim. Non-empty → root template + the `docker/subpath.conf.template`
+   block (prefix `location`, asset cache headers, no-cache for `index.html`)
+   inserted ABOVE `location /`.
+
+The normalizer lives at `config/base-url.ts` (imported by both config files
+and re-exported for tooling). Single-segment paths only (`/admin`, `/portal`);
+multi-segment values throw at config time so misconfigurations fail at
+dev/build time, not silently in production. The value is normalized to
+leading-slash + trailing-slash form (e.g. `/admin/`).
 
 ## Commands
 

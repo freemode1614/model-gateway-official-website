@@ -51,33 +51,45 @@ Your application will be available at `http://localhost:5173`.
 
 ## Environment Variables
 
-`.env` files are loaded from the project root. This project uses the **`APP_`**
+`.env` files are loaded from the project root. This project uses the **`WEBAPP_`**
 prefix instead of Vite's default `VITE_` (set via `envOptions.envPrefix` in
-`vite.config.ts`), so only `APP_*` variables are exposed to the client bundle:
+`vite.config.ts`), so only `WEBAPP_*` variables are exposed to the client bundle:
 
 ```bash
 # .env.example → copy to .env and adjust
-APP_PETSTORE_BASE_URL=https://petstore.swagger.io/v2
-APP_PETSTORE_SPEC_URL=https://petstore.swagger.io/v2/swagger.json
+WEBAPP_PETSTORE_BASE_URL=https://petstore.swagger.io/v2
+WEBAPP_PETSTORE_SPEC_URL=https://petstore.swagger.io/v2/swagger.json
+WEBAPP_BASE_URL=                       # leave empty for site root
 ```
 
-- Access them with `import.meta.env.APP_PETSTORE_BASE_URL` — the `ImportMetaEnv`
-  interface in `app/env.d.ts` provides types and autocomplete.
-- `vite.config.ts` reads the same variables with `loadEnv(mode, process.cwd(), "APP_")`
+- Access them with `import.meta.env.WEBAPP_PETSTORE_BASE_URL` — the
+  `ImportMetaEnv` interface in `app/env.d.ts` provides types and autocomplete.
+- `vite.config.ts` reads the same variables with `loadEnv(mode, process.cwd(), "WEBAPP_")`
   so the apicodegen plugin can be configured from the environment too. If you
-  change `APP_PETSTORE_*`, restart `pnpm dev` (or run `pnpm api:gen`) to
+  change `WEBAPP_PETSTORE_*`, restart `pnpm dev` (or run `pnpm api:gen`) to
   regenerate the client against the new spec/base URL.
+- `WEBAPP_BASE_URL` is **also** read by `react-router.config.ts` from
+  `process.env` at dev/build time and passed to React Router as the
+  `basename`. See [Hosted under a base path](#hosted-under-a-base-path)
+  below.
 
 ## Project Structure
 
 ```
 .
-├── .env.example          # APP_-prefixed env vars (copy to .env)
+├── .env.example          # WEBAPP_-prefixed env vars (copy to .env)
 ├── vitest.config.ts      # Standalone test config (no app plugins)
+├── config/
+│   └── base-url.ts       # WEBAPP_BASE_URL normalizer (single source of truth)
+├── Dockerfile            # Build: `docker build .` (context = repo root)
+├── docker/               # Runtime + nginx templates referenced by Dockerfile
+│   ├── entrypoint.sh         # Composes nginx.conf from WEBAPP_BASE_URL at start
+│   ├── root.conf.template
+│   └── subpath.conf.template
 └── app/
     ├── root.tsx              # Root layout + root ErrorBoundary + pre-paint theme script
     ├── entry.client.tsx      # Client bootstrap (hydration, global error hooks)
-    ├── env.d.ts              # ImportMetaEnv typing for APP_* variables
+    ├── env.d.ts              # ImportMetaEnv typing for WEBAPP_* variables
     ├── app.css               # Global styles (Tailwind v4, class-based dark mode)
     ├── routes.ts             # Route config — flatRoutes()
     ├── routes/               # All route files (see AGENTS.md for conventions)
@@ -188,18 +200,113 @@ a fallback so unknown paths serve `index.html` (client-side routing).
 
 ### Docker
 
-The included `Dockerfile` builds the client bundle and serves it with nginx
-(SPA fallback + gzip + cache headers already configured, see `nginx.conf`):
+The included `Dockerfile` (built from the **repo root**) produces a
+self-contained nginx image. SPA fallback, gzip, and cache headers are
+configured out of the box:
 
 ```bash
+# Site root (default)
 docker build -t my-app .
-
-# Run the container (nginx listens on port 80)
 docker run -p 3000:80 my-app
+
+# Sub-path — every asset, route, and link is auto-prefixed at build time
+docker build --build-arg WEBAPP_BASE_URL=/admin -t my-app .
+docker run -p 3000:80 my-app
+# → http://localhost:3000/admin/
 ```
 
-Works on any container platform: AWS ECS, Google Cloud Run, Azure Container Apps,
-DigitalOcean App Platform, Fly.io, Railway, …
+The image's runtime nginx config is rendered from `WEBAPP_BASE_URL` at
+container start (not at build time), so you can change the host path
+without rebuilding by setting the same env var at `docker run`:
+
+```bash
+docker build -t my-app .                              # WEBAPP_BASE_URL empty
+docker run -p 3000:80 -e WEBAPP_BASE_URL=/admin my-app # serve at /admin
+```
+
+Works on any container platform: AWS ECS, Google Cloud Run, Azure Container
+Apps, DigitalOcean App Platform, Fly.io, Railway, …
+
+Build-time expectations:
+- **Cold build** (`docker build` with no cache) — about **3-4 minutes**.
+  The largest single step is `pnpm install` (~100 s for ~200 packages);
+  the rest is image pulls, transpile, and the SPA fallback render.
+- **Warm build** (no source/package changes) — **under 2 seconds**.
+- **Incremental build** (source changed, packages unchanged) — **5-15 seconds**;
+  the dependencies layer is cached separately in the new `deps` stage.
+
+### Hosted under a base path (non-Docker hosts)
+
+If you're deploying `build/client/` directly to a static host (Netlify,
+Vercel, Cloudflare Pages, S3, or your own nginx), set `WEBAPP_BASE_URL` at
+**build** time and mirror the prefix in the host's routing config:
+
+```bash
+# Local dev
+WEBAPP_BASE_URL=/admin pnpm dev      # → http://localhost:5173/admin/
+
+# Or via .env
+echo 'WEBAPP_BASE_URL=/admin' >> .env
+pnpm dev
+
+# Production build (bakes the basename into the bundle)
+WEBAPP_BASE_URL=/admin pnpm build
+```
+
+Only single-segment paths are supported (`/admin`, `/portal` …). Multi-segment
+or unparseable values throw during config loading. The value is normalized
+into a leading-slash + trailing-slash form (e.g. `/admin/`).
+
+nginx example (mirrors the cache headers from
+`docker/root.conf.template`):
+
+```nginx
+location /admin/ {
+    alias /usr/share/nginx/html/;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+The browser requests `/admin/favicon.ico` when the document URL is `/admin/`,
+so the `alias` (vs `root`) is what makes that resolve to `/favicon.ico`
+in the static build directory.
+
+### Non-Docker static hosts (Netlify / Vercel / Cloudflare Pages / S3)
+
+For a prefixed build, add a single rewrite rule (the host resolves the
+prefix to the same static build directory the SPA already knows about):
+
+```nginx
+location /admin/ {
+    alias /usr/share/nginx/html/;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+A working example that mirrors the cache headers from the bundled nginx
+config is included as a comment block in `docker/root.conf.template`. The
+browser requests `/admin/favicon.ico` when the document URL is `/admin/`,
+so the `alias` (vs `root`) is what makes that resolve to `/favicon.ico`
+in the static build directory.
+
+Other hosts:
+
+- **Netlify** — `_redirects` is prefix-aware: `/admin/* /admin/index.html 200`.
+- **Vercel** — `rewrites` in `vercel.json` with `{ "source": "/admin/(.*)",
+  "destination": "/admin/index.html" }`.
+- **Cloudflare Pages / S3** — point the prefix at the same static build and
+  configure the error document to `index.html` within the prefix.
+
+Notes:
+
+- The basename is **baked at build time** — there's no runtime injection.
+  A rebuild is required after changing `WEBAPP_BASE_URL`.
+- All `<Link to="…">` / `useNavigate()` calls are auto-prefixed client-side;
+  route files do not need to change.
+- For Docker, pass it as a build arg:
+  ```bash
+  docker build --build-arg WEBAPP_BASE_URL=/admin -t my-app .
+  ```
 
 ### Static hosting (DIY)
 
@@ -208,7 +315,7 @@ Upload `build/client/` to your static host and configure an SPA fallback
 
 - **Netlify**: `public/_redirects` with `/* /index.html 200`
 - **Vercel**: `rewrites` in `vercel.json`
-- **nginx**: `try_files $uri $uri/ /index.html;` (see `nginx.conf`)
+- **nginx**: `try_files $uri $uri/ /index.html;` (see `docker/root.conf.template`)
 - **Cloudflare Pages / S3+CloudFront**: default-root / error-document = `index.html`
 
 ## Notes

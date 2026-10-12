@@ -22,9 +22,9 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-// Overridable via .env (APP_ prefix — see .env.example).
+// Overridable via .env (WEBAPP_ prefix — see .env.example).
 const API_BASE =
-  import.meta.env.APP_PETSTORE_BASE_URL ?? "https://petstore.swagger.io/v2";
+  import.meta.env.WEBAPP_PETSTORE_BASE_URL ?? "https://petstore.swagger.io/v2";
 
 export default function ApiDemo() {
   const [pets, setPets] = useState<Pet[]>([]);
@@ -91,7 +91,7 @@ export default function ApiDemo() {
             <code className="text-xs">vite.config.ts</code> —{" "}
             <code className="text-xs">apiCodeGenPlugin</code> points at a spec
             URL and an output file (both overridable via{" "}
-            <code className="text-xs">APP_</code> env vars)
+            <code className="text-xs">WEBAPP_</code> env vars)
           </li>
           <li>
             On dev/build start the plugin fetches the spec and writes{" "}
@@ -105,14 +105,14 @@ export default function ApiDemo() {
         </ol>
         <pre className="text-xs overflow-x-auto rounded-lg bg-gray-900 text-gray-100 p-4 leading-relaxed">
           {`// vite.config.ts
-const env = loadEnv(mode, process.cwd(), "APP_");
+const env = loadEnv(mode, process.cwd(), "WEBAPP_");
 apiCodeGenPlugin([
   {
     name: "petstore",
-    spec: env.APP_PETSTORE_SPEC_URL ?? "https://petstore.swagger.io/v2/swagger.json",
+    spec: env.WEBAPP_PETSTORE_SPEC_URL ?? "https://petstore.swagger.io/v2/swagger.json",
     output: "app/api/petstore.ts",
     adaptor: "fetch",
-    baseURL: env.APP_PETSTORE_BASE_URL ?? "https://petstore.swagger.io/v2",
+    baseURL: env.WEBAPP_PETSTORE_BASE_URL ?? "https://petstore.swagger.io/v2",
     typeCheck: false,
   },
 ])

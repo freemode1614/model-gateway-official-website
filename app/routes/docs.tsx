@@ -118,8 +118,8 @@ export default function Docs() {
             </li>
             <li>
               Point the plugin at your own API via{" "}
-              <Code>APP_PETSTORE_SPEC_URL</Code> /{" "}
-              <Code>APP_PETSTORE_BASE_URL</Code> (see .env.example).
+              <Code>WEBAPP_PETSTORE_SPEC_URL</Code> /{" "}
+              <Code>WEBAPP_PETSTORE_BASE_URL</Code> (see .env.example).
             </li>
           </ul>
         </section>
@@ -149,9 +149,9 @@ export default function Docs() {
           </h2>
           <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
             <li>
-              Client-visible variables use the <Code>APP_</Code> prefix (
+              Client-visible variables use the <Code>WEBAPP_</Code> prefix (
               <Code>envOptions.envPrefix</Code> in vite.config.ts) and reach the
-              app as <Code>import.meta.env.APP_*</Code> — typed in{" "}
+              app as <Code>import.meta.env.WEBAPP_*</Code> — typed in{" "}
               <Code>app/env.d.ts</Code>, sampled in <Code>.env.example</Code>.
             </li>
             <li>

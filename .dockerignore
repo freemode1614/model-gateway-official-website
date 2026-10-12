@@ -1,6 +1,44 @@
-.git
-.react-router
-build
-node_modules
-README.md
-.github
+# Anything not needed to build a static SPA — keeps the build context small and
+# the COPY step cheap. Paths use the repo root; everything below is relative.
+#
+# Build output (committed fallbacks AND generated)
+build/
+.react-router/
+
+# Dependencies (re-installed inside the image)
+node_modules/
+.pnpm-store/
+
+# VCS / CI / IDE
+.git/
+.gitignore
+.github/
+
+# Local env / OS noise
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+
+# Agent config (not part of the build product)
+.agents/
+.claude/
+
+# Logs / coverage
+*.log
+coverage/
+.nyc_output/
+
+# Tests + tooling (not needed to build the SPA; pnpm test still works in CI)
+app/tests/
+app/test-fixtures/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Dev-only fixtures we never want shipped
+.vite/
+.turbo/
+dist/

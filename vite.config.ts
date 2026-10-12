@@ -3,37 +3,42 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, loadEnv } from "vite";
 
+import { normalizeBaseUrl } from "./config/base-url";
+
 export default defineConfig(({ mode }) => {
-  // APP_-prefixed variables from .env / the process environment
+  // WEBAPP_-prefixed variables from .env / the process environment
   // (see .env.example). The same variables are exposed to the client
   // bundle below via `envOptions.envPrefix`.
-  const env = loadEnv(mode, process.cwd(), "APP_");
+  const env = loadEnv(mode, process.cwd(), "WEBAPP_");
 
-  // Generates app/api/petstore.ts from the hosted OpenAPI spec on every
-  // dev/build start. The generated file is committed, so if codegen fails
-  // (e.g. no network), Vite logs a warning and continues with the existing
-  // file. Point `spec`/`baseURL` at your own API to use this workflow.
+  // Generated API client config (see app/api/petstore.ts).
   const petstoreApi = {
     name: "petstore",
     spec:
-      env.APP_PETSTORE_SPEC_URL ??
+      env.WEBAPP_PETSTORE_SPEC_URL ??
       "https://petstore.swagger.io/v2/swagger.json",
     output: "app/api/petstore.ts",
     adaptor: "fetch" as const,
-    baseURL: env.APP_PETSTORE_BASE_URL ?? "https://petstore.swagger.io/v2",
-    // `pnpm typecheck` already covers the generated file.
+    baseURL: env.WEBAPP_PETSTORE_BASE_URL ?? "https://petstore.swagger.io/v2",
     typeCheck: false,
   };
+
+  // Align Vite's `base` with React Router's `basename` so emitted asset
+  // URLs (`/assets/…`, favicon, runtime manifest) carry the same prefix
+  // the SPA is served under. The RR plugin enforces that `basename`
+  // starts with this `base`, so they must be derived from the same value.
+  const base = normalizeBaseUrl(process.env.WEBAPP_BASE_URL);
 
   return {
     plugins: [tailwindcss(), apiCodeGenPlugin([petstoreApi]), reactRouter()],
     resolve: {
       tsconfigPaths: true,
     },
-    // Expose APP_-prefixed variables to the client bundle as
-    // import.meta.env.APP_* (typed in app/env.d.ts).
+    base,
+    // Expose WEBAPP_-prefixed variables to the client bundle as
+    // import.meta.env.WEBAPP_* (typed in app/env.d.ts).
     envOptions: {
-      envPrefix: "APP_",
+      envPrefix: "WEBAPP_",
     },
   };
 });

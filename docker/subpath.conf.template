@@ -1,0 +1,31 @@
+# Sub-path blocks rendered from WEBAPP_BASE_URL at container start.
+# ${BASE_URL_PATH} expands to the prefix with both leading AND trailing
+# slashes (e.g. "/admin/"). The awk script in docker/entrypoint.sh inserts
+# this block ABOVE the root `location /` so it matches first.
+#
+# Layout:
+#   /admin/...            → location block (SPA fallback)
+#   /admin/assets/...js   → immutable cache
+#   /admin/index.html     → no-cache
+#   /admin/favicon.ico    → short cache
+# All paths use the same `/usr/share/nginx/html` files (via `alias`).
+
+    location ${BASE_URL_PATH} {
+        alias /usr/share/nginx/html/;
+        add_header X-Content-Type-Options "nosniff" always;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~^${BASE_URL_PATH}.+\.(js|css|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    location = ${BASE_URL_PATH}index.html {
+        add_header Cache-Control "no-cache";
+    }
+
+    location = ${BASE_URL_PATH}favicon.ico {
+        expires 7d;
+        add_header Cache-Control "public";
+    }
