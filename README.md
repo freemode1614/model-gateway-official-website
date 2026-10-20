@@ -217,6 +217,36 @@ a fallback so unknown paths serve `index.html` (client-side routing).
 
 ## Deployment
 
+### Cloudflare Workers (static assets)
+
+This is an SPA (`ssr: false`), so deploy `build/client/` as Workers static
+assets. The committed `wrangler.jsonc` sets
+`not_found_handling: "single-page-application"`, which makes deep links such as
+`/pricing` and `/docs` fall back to `index.html`.
+
+Cloudflare Workers Builds settings:
+
+- **Build command:** `pnpm run build`
+- **Deploy command:** `npx wrangler deploy`
+- **Root directory:** repository root
+- Leave `WEBAPP_BASE_URL` empty for a root deployment.
+
+The deploy command reads `wrangler.jsonc` and does not need Cloudflare's
+React Router SSR setup. Do not accept the generated `workers/app.ts` /
+`@cloudflare/vite-plugin` configuration — there is no server bundle.
+
+Local deploy and preview:
+
+```bash
+pnpm exec wrangler login
+pnpm run deploy:cf   # build + wrangler deploy
+pnpm run preview:cf  # build + wrangler dev (http://localhost:8787)
+```
+
+`pnpm-workspace.yaml` allows the `esbuild` and `workerd` install scripts.
+Without those entries, Cloudflare's install step fails with
+`ERR_PNPM_IGNORED_BUILDS` while setting up Wrangler.
+
 ### Docker
 
 The included `Dockerfile` (built from the **repo root**) produces a

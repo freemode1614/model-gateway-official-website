@@ -17,6 +17,8 @@
     "check:ci": "biome ci",
     "test": "vitest run",
     "test:watch": "vitest",
+    "deploy:cf": "pnpm run build && wrangler deploy",
+    "preview:cf": "pnpm run build && wrangler dev",
     "api:gen": "apicodegen https://petstore.swagger.io/v2/swagger.json -o app/api/petstore.ts -a fetch -b https://petstore.swagger.io/v2"
   },
   "dependencies": {
@@ -47,6 +49,7 @@
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
     "vite": "^8.0.3",
-    "vitest": "^5.0.3"
+    "vitest": "^5.0.3",
+    "wrangler": "^4.151.2"
   }
 }

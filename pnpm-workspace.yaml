@@ -5,3 +5,9 @@
 peerDependencyRules:
   allowedVersions:
     vite: "8"
+
+# Wrangler needs these native packages to run their install scripts when
+# Cloudflare builds and deploys the static assets.
+allowBuilds:
+  esbuild: true
+  workerd: true
