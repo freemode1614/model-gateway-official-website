@@ -165,8 +165,8 @@ returning `data({}, 404)` so crawlers get a real 404 status.)
 8. **`app/api/petstore.ts` is generated code.** It is rewritten by the `apiCodeGenPlugin` on every dev/build start (and by `pnpm api:gen`). Never hand-edit it — change the spec/config and regenerate.
 9. **Tests live in `app/tests/` only.** Never put `*.test.tsx`/`*.test.ts` in `app/routes/` — fs-routes would register them as routes. `vitest.config.ts` is standalone; it must not load `vite.config.ts` plugins.
 10. **Environment variables use the `WEBAPP_` prefix** (not `VITE_`). Exposed via `envOptions.envPrefix` in `vite.config.ts`, typed in `app/env.d.ts`, documented in `.env.example`. `WEBAPP_BASE_URL` is additionally read by `react-router.config.ts` from `process.env` at dev/build time to set the router `basename` — a full rebuild is required after changing it. Only single-segment paths are supported (e.g. `/admin`); multi-segment values throw at config time.
-11. **Dark mode is class-based** (`.dark` on `<html>`). Toggle logic lives in `app/components/theme-toggle.tsx`; the pre-paint inline script in `root.tsx` must stay in sync with its `localStorage` key (`"theme"`). New styles need `dark:` variants.
-12. **Reuse `app/components/`** (Page, Button, Card, Badge, Input, Spinner, ThemeToggle) instead of duplicating markup in routes. `buttonClasses(variant)` is exported for styling `<Link>`s.
+11. **Marketing pages use the editorial paper system.** Wrap product pages in `<SiteShell variant="editorial">` and use the `ed-*` utilities/primitives. The unlinked starter demo routes still use the legacy class-based dark shell (`.dark` on `<html>`); changes there need `dark:` variants and the existing theme-toggle contract.
+12. **Reuse `app/components/editorial/`** (PageHero, SectionHeader, FaqBlock, EditorialCode, EdButton, Wrap, Label, …) for marketing pages instead of duplicating markup. Reuse `app/components/` for the legacy demo routes.
 
 ## Creating a New Route
 

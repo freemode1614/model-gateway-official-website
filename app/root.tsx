@@ -8,37 +8,45 @@ import {
   ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { ThemeToggle } from "./components/theme-toggle";
 import "./app.css";
 
-// Runs before paint so the correct theme class is set without a flash
-// (prefers-color-scheme as default, localStorage override wins).
-const themeScript = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
-
-// Default document title for the initial HTML shell (before any route's
-// meta() runs). Child routes override it with their own `title`.
+// Legacy starter routes are dark-only. The editorial marketing shell opts into
+// its own paper theme via `.ed-shell`; the `dark` class stays pinned for pages
+// that have not been migrated yet.
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "React fs-routes SPA" },
+    { title: "Portico — The model gateway, governed" },
     {
       name: "description",
-      content: "React Router v8 + fs-routes SPA template",
+      content:
+        "One gateway between your product and every model you depend on. Route by cost, latency, or quality. Enforce policy before inference. Keep the receipt.",
+    },
+    { name: "theme-color", content: "#f2efe7" },
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: "Portico — The model gateway, governed" },
+    {
+      property: "og:description",
+      content:
+        "Your models are infrastructure. Treat them like it. Routing, policy, caching, and records for production AI.",
     },
   ];
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static constant, not user-controlled — required for a pre-paint inline script */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          href={`${import.meta.env.BASE_URL}favicon.svg`}
+        />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-ink text-slate-200">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -48,12 +56,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return (
-    <>
-      <Outlet />
-      <ThemeToggle />
-    </>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -73,23 +76,25 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-4">
-      <div className="mx-auto w-full max-w-2xl">
-        <h1 className="text-4xl font-bold mb-4">{message}</h1>
-        <p className="text-gray-600 dark:text-gray-300 mb-6">{details}</p>
+    <main className="ed-shell relative flex min-h-screen items-center justify-center p-5">
+      <div className="w-full max-w-2xl border border-rule bg-paper p-6 sm:p-8">
+        <div className="flex items-center justify-between border-b border-rule pb-3">
+          <span className="ed-label text-accent">Runtime error</span>
+          <span className="ed-label">Portico / Exception</span>
+        </div>
+        <h1 className="ed-display mt-6 text-[clamp(2.5rem,6vw,4.5rem)]">
+          {message}
+        </h1>
+        <p className="ed-body mt-4 text-sm">{details}</p>
         {stack && (
-          <pre className="w-full p-4 mb-6 overflow-x-auto rounded-lg bg-gray-100 dark:bg-gray-800">
+          <pre className="ed-code mt-6 w-full overflow-x-auto p-4 text-[11px] leading-relaxed">
             <code>{stack}</code>
           </pre>
         )}
-        <Link
-          to="/"
-          className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-        >
+        <Link to="/" className="ed-btn mt-6">
           ← Back to home
         </Link>
       </div>
-      <ThemeToggle />
     </main>
   );
 }

@@ -1,3 +1,22 @@
+# Portico — Model Gateway Marketing Site
+
+An editorial marketing site for **Portico**, a fictional enterprise model gateway.
+Warm paper, ink, one vermilion accent, numbered sections, hairline rules, and technical
+figures — built on the React Router v8 + fs-routes SPA template documented below.
+
+- **Pages:** `/` (editorial landing), `/platform`, `/pricing`, `/docs`, `/company`, `/contact`
+- **Interactive pieces:** decision ledger, architecture path diagram, policy/routing
+  simulator, ROI calculator, pricing toggle, code tabs with copy, FAQ accordion, contact form
+- **Design system:** Fraunces + IBM Plex Sans/Mono, Tailwind v4 tokens and editorial
+  utilities in [`app/app.css`](./app/app.css); marketing components in
+  `app/components/editorial/`. The unlinked starter demo routes retain the legacy dark shell.
+- **Run:** `pnpm install && pnpm dev` → http://localhost:5173
+
+> The original starter demo routes (`/about`, `/blog`, `/dashboard`, `/products`, `/api-demo`,
+> `/boom`) are still present for reference but are not linked from the marketing navigation.
+
+---
+
 # React Router v8 + fs-routes SPA
 
 A minimal, production-ready **SPA** template built with [React Router v8](https://reactrouter.com/) using
@@ -16,7 +35,7 @@ A minimal, production-ready **SPA** template built with [React Router v8](https:
 - 🧩 Shared component layer (`app/components/`: Page, Button, Card, Badge, Input, Spinner, ThemeToggle)
 - 🖼️ [lucide-react](https://lucide.dev/) icons
 - 🛡️ Error handling: root `ErrorBoundary` (demo: `/boom`) + catch-all 404 page (`$.tsx`)
-- 📦 Self-hosted Inter font (no runtime network dependency)
+- 📦 Self-hosted Fraunces + IBM Plex fonts (no runtime network dependency)
 - 🔌 API client codegen: OpenAPI spec → typed fetch client via `@moccona/apicodegen`
 - 🧪 Testing: Vitest + React Testing Library (+ `react-router`'s `createRoutesStub`)
 - 🐳 Docker + nginx image with SPA fallback, gzip, and correct cache headers
