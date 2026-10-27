@@ -335,7 +335,7 @@ export default function Company() {
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((person) => (
             <div key={person.name} className="border-t border-rule pt-4">
-              <span className="grid h-12 w-12 place-items-center border border-graphite/60 font-mono text-[11px] tracking-[0.08em]">
+              <span className="grid h-12 w-12 place-items-center rounded-2xl border border-rule bg-paper-deep/20 font-mono text-[11px] tracking-[0.08em] backdrop-blur-sm">
                 {person.initials}
               </span>
               <h3 className="mt-4 text-[13.5px] font-medium text-graphite">

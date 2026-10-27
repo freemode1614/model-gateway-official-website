@@ -21,7 +21,7 @@ export function meta(_: Route.MetaArgs) {
       content:
         "One gateway between your product and every model you depend on. Route by cost, latency, or quality. Enforce policy before inference. Keep the receipt.",
     },
-    { name: "theme-color", content: "#f2efe7" },
+    { name: "theme-color", content: "#eef1f6" },
     { property: "og:type", content: "website" },
     { property: "og:title", content: "Portico — The model gateway, governed" },
     {

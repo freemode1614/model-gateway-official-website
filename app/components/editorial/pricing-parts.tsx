@@ -109,7 +109,7 @@ export function PlanCards() {
         </p>
       </div>
 
-      <div className="mt-6 grid gap-px border border-rule bg-rule lg:grid-cols-3">
+      <div className="mt-6 grid gap-px overflow-hidden rounded-[24px] border border-rule bg-rule lg:grid-cols-3">
         {tiers.map((tier) => {
           const amount =
             tier.monthly === null

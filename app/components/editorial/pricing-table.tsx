@@ -123,7 +123,7 @@ export function PricingTable() {
           </table>
         </div>
 
-        <div className="grid grid-cols-3 gap-px border-b border-rule bg-rule">
+        <div className="grid grid-cols-3 gap-px overflow-hidden rounded-[22px] border border-rule bg-rule">
           {plans.map((plan) => (
             <div key={plan.name} className="bg-paper p-3 sm:p-4">
               <Link

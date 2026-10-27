@@ -43,6 +43,18 @@ function HashScroll() {
   return null;
 }
 
+/** Colour field behind the glass. Fixed + transform-only for cheap compositing. */
+function LiquidBackdrop() {
+  return (
+    <div className="liquid-bg" aria-hidden="true">
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
+  );
+}
+
 export function SiteShell({
   children,
   variant = "ink",
@@ -53,6 +65,7 @@ export function SiteShell({
   if (variant === "editorial") {
     return (
       <div id="top" className="ed-shell relative min-h-screen antialiased">
+        <LiquidBackdrop />
         <HashScroll />
         <a
           href="#main"

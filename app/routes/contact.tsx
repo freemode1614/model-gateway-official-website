@@ -213,7 +213,7 @@ export default function Contact() {
                               type="button"
                               onClick={() => toggle(interest)}
                               aria-pressed={active}
-                              className={`cursor-pointer border px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.08em] transition-colors ${
+                              className={`cursor-pointer rounded-full border px-3.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.08em] backdrop-blur-sm transition-colors ${
                                 active
                                   ? "border-graphite bg-graphite text-paper"
                                   : "border-rule text-graphite-soft hover:border-graphite"

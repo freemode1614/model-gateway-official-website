@@ -1027,3 +1027,452 @@ body:has(.ed-shell) {
     transform: none;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Liquid glass                                                        */
+/* ------------------------------------------------------------------ */
+
+/*
+ * The glass reads through the fixed colour field painted by <LiquidBackdrop />.
+ * Only transforms animate; blur stays on the surfaces, never on the field.
+ */
+body:has(.ed-shell) {
+  background-color: #eef1f6;
+}
+
+.ed-shell {
+  background: transparent;
+  isolation: isolate;
+  --lg-blur: 20px;
+  --lg-edge: rgba(255, 255, 255, 0.62);
+  --lg-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --lg-shadow: 0 22px 55px -32px rgba(23, 22, 15, 0.45);
+}
+
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% -10%, #fbfaf6 0%, transparent 55%),
+    linear-gradient(160deg, #eef1f4 0%, #e8ecf3 48%, #edf1ee 100%);
+}
+
+.liquid-bg span {
+  position: absolute;
+  width: 62vw;
+  height: 62vw;
+  border-radius: 50%;
+  will-change: transform;
+  animation: liquid-drift 26s ease-in-out infinite alternate;
+}
+
+.liquid-bg span:nth-child(1) {
+  top: -18vw;
+  left: -14vw;
+  background: radial-gradient(circle, rgba(255, 150, 96, 0.62), transparent 66%);
+}
+
+.liquid-bg span:nth-child(2) {
+  top: -8vw;
+  right: -18vw;
+  background: radial-gradient(circle, rgba(156, 132, 255, 0.52), transparent 66%);
+  animation-duration: 32s;
+  animation-delay: -6s;
+}
+
+.liquid-bg span:nth-child(3) {
+  bottom: -26vw;
+  left: 18vw;
+  background: radial-gradient(circle, rgba(64, 205, 214, 0.42), transparent 66%);
+  animation-duration: 38s;
+  animation-delay: -14s;
+}
+
+.liquid-bg span:nth-child(4) {
+  right: -10vw;
+  bottom: -22vw;
+  background: radial-gradient(circle, rgba(255, 196, 120, 0.5), transparent 66%);
+  animation-duration: 30s;
+  animation-delay: -20s;
+}
+
+@keyframes liquid-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(7vw, 5vh, 0) scale(1.16);
+  }
+}
+
+/* Translucent frosted surfaces */
+.ed-shell .bg-paper,
+.ed-shell .bg-paper-deep,
+.ed-shell .bg-paper-deep\/20,
+.ed-shell .bg-paper-deep\/30,
+.ed-shell .bg-paper-deep\/40 {
+  background:
+    linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.62),
+      rgba(255, 255, 255, 0.32)
+    );
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(175%);
+  backdrop-filter: blur(var(--lg-blur)) saturate(175%);
+  box-shadow: var(--lg-sheen), var(--lg-shadow);
+}
+
+/* Inline code and table bands: tint only, no blur or cast shadow. */
+.ed-shell .bg-paper-deep\/60 {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.ed-shell .bg-paper-deep\/20.border,
+.ed-shell .bg-paper-deep\/30.border,
+.ed-shell .bg-paper-deep\/40.border {
+  border-radius: 18px;
+}
+
+.ed-shell code.bg-paper-deep\/60 {
+  border-radius: 10px;
+}
+
+/* Callout notes */
+.ed-shell [class~="border-l-2"] {
+  border-radius: 0 16px 16px 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.ed-shell .bg-rule {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ed-shell .border-rule {
+  border-color: var(--lg-edge);
+}
+
+.ed-shell .ed-ledger {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  background:
+    linear-gradient(155deg, rgba(31, 29, 22, 0.9), rgba(48, 43, 32, 0.74));
+  -webkit-backdrop-filter: blur(26px) saturate(160%);
+  backdrop-filter: blur(26px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 30px 70px -34px rgba(23, 22, 15, 0.75);
+  overflow: hidden;
+}
+
+.ed-shell .ed-code {
+  border-radius: 0 0 18px 18px;
+  background:
+    linear-gradient(155deg, rgba(26, 24, 18, 0.94), rgba(44, 40, 30, 0.82));
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+/* Full-bleed dark bands become floating slabs of smoked glass */
+.ed-shell .ed-dark {
+  position: relative;
+  isolation: isolate;
+  margin: clamp(1rem, 2.5vw, 2.5rem) clamp(0.5rem, 2vw, 1.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: clamp(20px, 3vw, 36px);
+  background:
+    linear-gradient(150deg, rgba(23, 22, 15, 0.95), rgba(34, 30, 22, 0.88));
+  -webkit-backdrop-filter: blur(28px) saturate(125%);
+  backdrop-filter: blur(28px) saturate(125%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 40px 90px -50px rgba(23, 22, 15, 0.9);
+  overflow: hidden;
+}
+
+.ed-shell .ed-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 70% at 12% -5%, rgba(255, 255, 255, 0.1), transparent 62%),
+    radial-gradient(45% 55% at 92% 105%, rgba(228, 118, 79, 0.16), transparent 66%);
+}
+
+.ed-shell .bg-graphite {
+  background:
+    linear-gradient(155deg, rgba(28, 26, 20, 0.94), rgba(44, 39, 29, 0.86));
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Navigation + footer chrome */
+.ed-shell header.sticky {
+  border-bottom: 1px solid var(--lg-edge);
+  background: rgba(250, 249, 246, 0.93);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 16px 44px -32px rgba(23, 22, 15, 0.55);
+}
+
+.ed-shell footer.bg-paper {
+  border-radius: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 40px) 0 0;
+  border: 1px solid var(--lg-edge);
+  border-bottom: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0.3)
+    );
+}
+
+/* Buttons, fields, and small controls */
+.ed-shell .ed-btn {
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  background:
+    linear-gradient(160deg, rgba(31, 29, 22, 0.94), rgba(23, 22, 15, 0.82));
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 30px -18px rgba(23, 22, 15, 0.65);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ed-shell .ed-btn:hover {
+  transform: translateY(-1px);
+}
+
+.ed-shell .ed-btn-ghost {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.38);
+  color: var(--color-graphite);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 28px -22px rgba(23, 22, 15, 0.4);
+}
+
+.ed-shell .ed-btn-paper {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--color-graphite);
+}
+
+.ed-shell .ed-btn:hover,
+.ed-shell .ed-btn-ghost:hover,
+.ed-shell .ed-btn-paper:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-paper);
+}
+
+.ed-shell .ed-input {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.32);
+  padding: 0.7rem 1.1rem;
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.ed-shell .ed-input:focus {
+  border-color: var(--color-accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 0 0 3px rgba(189, 63, 27, 0.16);
+}
+
+.ed-shell .ed-check {
+  border-radius: 5px;
+}
+
+/* Keep vendor pseudo-elements in separate rules: an unknown selector in a
+   grouped list invalidates the whole rule in Chromium. */
+.ed-shell .ed-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: var(--color-graphite);
+  box-shadow: 0 3px 10px -2px rgba(23, 22, 15, 0.55);
+}
+
+.ed-shell .ed-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: var(--color-graphite);
+  box-shadow: 0 3px 10px -2px rgba(23, 22, 15, 0.55);
+}
+
+/* A slower shimmer on glass edges, not on text */
+.ed-shell .ed-ledger::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.09) 45%,
+    transparent 60%
+  );
+  background-size: 220% 100%;
+  animation: glass-sheen 9s ease-in-out infinite;
+}
+
+@keyframes glass-sheen {
+  0%,
+  100% {
+    background-position: 160% 0;
+    opacity: 0.35;
+  }
+  50% {
+    background-position: -60% 0;
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-bg span {
+    animation: none;
+  }
+  .ed-shell .ed-ledger::after {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass refinements                                                   */
+/* ------------------------------------------------------------------ */
+
+/* Pre-glass editorial surfaces that still need to sit on the glass layer. */
+.ed-shell .ed-index-row:hover {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+/* Figure frames, the savings calculator, and the recommended plan card. */
+.ed-shell [class*="bg-[#f7f4ec]"] {
+  border-color: var(--lg-edge);
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.66),
+      rgba(255, 255, 255, 0.34)
+    );
+  -webkit-backdrop-filter: blur(22px) saturate(175%);
+  backdrop-filter: blur(22px) saturate(175%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 30px 70px -36px rgba(23, 22, 15, 0.5);
+  overflow: hidden;
+}
+
+/* Segmented controls and card grids read as one rounded pane. */
+.ed-shell .grid.gap-px.border-rule,
+.ed-shell .inline-flex.border-rule {
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+/* Chips and meters */
+.ed-shell .bg-accent-wash {
+  border-radius: 14px;
+}
+
+.ed-shell .bg-accent,
+.ed-shell .bg-\[\#e4764f\] {
+  border-radius: 999px;
+}
+
+.ed-shell .bg-paper\/15,
+.ed-shell .bg-paper\/35 {
+  border-radius: 999px;
+}
+
+/* Hover states that the glass base rule would otherwise swallow. */
+.ed-shell .hover\:bg-paper-deep:hover,
+.ed-shell .hover\:bg-paper-deep\/40:hover {
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.ed-shell .hover\:border-graphite:hover {
+  border-color: rgba(23, 22, 15, 0.5);
+}
+
+/* Free-text fields */
+.ed-shell textarea.bg-paper {
+  border-radius: 18px;
+}
+
+.ed-shell textarea.bg-paper:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(189, 63, 27, 0.16);
+}
+
+/* Standalone pill links (docs section chips) */
+.ed-shell a[class~="border-rule"][class~="shrink-0"] {
+  border-radius: 999px;
+}
+
+/* Diagram frame inside smoked-glass sections */
+.ed-shell .ed-dark [class~="border-paper/12"] {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 640px) {
+  .ed-shell {
+    --lg-blur: 14px;
+  }
+
+  .liquid-bg span {
+    width: 110vw;
+    height: 110vw;
+  }
+}
+
+/* The mobile drawer needs more body than a content card: huge type sits behind it. */
+.ed-shell header .bg-paper {
+  background: linear-gradient(180deg, #f8f6f0, #f1eee6);
+}
+
+/* Menu toggle */
+.ed-shell header button[aria-expanded] {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Table cells: tint only */
+.ed-shell td.bg-paper-deep\/30 {
+  background: rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}

@@ -13,7 +13,7 @@ export function meta(_: Route.MetaArgs) {
   return [
     { title: "404 — Page not found · Portico" },
     { name: "robots", content: "noindex" },
-    { name: "theme-color", content: "#f2efe7" },
+    { name: "theme-color", content: "#eef1f6" },
   ];
 }
 

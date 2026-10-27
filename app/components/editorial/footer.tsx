@@ -63,7 +63,7 @@ export function EditorialFooter() {
                   On the list. No noise.
                 </p>
               ) : (
-                <div className="mt-3 flex items-end gap-3">
+                <div className="mt-3 flex items-center gap-3">
                   <label htmlFor="editorial-email" className="sr-only">
                     Work email
                   </label>
@@ -76,7 +76,7 @@ export function EditorialFooter() {
                   />
                   <button
                     type="submit"
-                    className="shrink-0 border-b border-graphite pb-2 text-[12px] font-medium text-graphite transition-colors hover:border-accent hover:text-accent"
+                    className="ed-btn ed-btn-ghost shrink-0 px-4 py-2 text-[12px]"
                   >
                     Subscribe
                   </button>

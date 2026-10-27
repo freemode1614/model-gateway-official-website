@@ -17,6 +17,7 @@ export function EditorialMark({
         y="0.5"
         width="31"
         height="31"
+        rx="9"
         stroke="currentColor"
         strokeOpacity="0.85"
       />
