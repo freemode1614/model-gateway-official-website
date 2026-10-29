@@ -13,7 +13,7 @@ import type { Route } from "./+types/_index";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Portico — The model gateway, governed" },
+    { title: "NCS Model Gateway — The model gateway, governed" },
     {
       name: "description",
       content:

@@ -3,16 +3,16 @@ import { Link } from "react-router";
 
 const faqs = [
   {
-    q: "Is Portico a proxy, or something I install?",
+    q: "Is Model Gateway a proxy, or something I install?",
     a: "Both. The managed gateway runs on our edge in 38 regions. Enterprise customers can deploy the same control plane inside their VPC, on-prem, or fully air-gapped. It sits in the request path and adds roughly 12ms median overhead.",
   },
   {
     q: "Do I have to change my application code?",
-    a: "No. Portico is OpenAI-compatible: keep your SDK, swap the base URL to https://api.portico.dev/v1, and set model to auto (or pin a specific model). Streaming, tool calls, embeddings, and vision inputs all work unchanged.",
+    a: "No. Model Gateway is OpenAI-compatible: keep your SDK, swap the base URL to https://api.ncs.dev/v1, and set model to auto (or pin a specific model). Streaming, tool calls, embeddings, and vision inputs all work unchanged.",
   },
   {
     q: "Which providers and models are supported?",
-    a: "120+ models across OpenAI, Anthropic, Google Vertex, Azure OpenAI, AWS Bedrock, Meta, Mistral, Cohere, DeepSeek, and self-hosted vLLM or Ollama. Bring your own keys, or use Portico-provisioned capacity.",
+    a: "120+ models across OpenAI, Anthropic, Google Vertex, Azure OpenAI, AWS Bedrock, Meta, Mistral, Cohere, DeepSeek, and self-hosted vLLM or Ollama. Bring your own keys, or use NCS-provisioned capacity.",
   },
   {
     q: "How does pricing work?",
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "How fast is failover, really?",
-    a: "Median reroute is 31ms. Portico watches provider health, rate-limit headers, and error rates per region, then retries, hedges, or fails over to your fallback list. Requests can also be mirrored to a canary model for evaluation.",
+    a: "Median reroute is 31ms. Model Gateway watches provider health, rate-limit headers, and error rates per region, then retries, hedges, or fails over to your fallback list. Requests can also be mirrored to a canary model for evaluation.",
   },
   {
     q: "Can I run evaluations and A/B tests?",

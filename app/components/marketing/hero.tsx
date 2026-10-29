@@ -49,8 +49,8 @@ export function Hero() {
 
             <Reveal delay={160}>
               <p className="mt-7 max-w-xl text-pretty text-[16.5px] leading-relaxed text-slate-400 sm:text-[17.5px]">
-                Portico is the enterprise model gateway for teams shipping AI at
-                scale. Route across{" "}
+                Model Gateway is the enterprise control plane for teams shipping
+                AI at scale. Route across{" "}
                 <span className="text-slate-200">120+ models</span>, enforce
                 guardrails, cut token spend by{" "}
                 <span className="text-slate-200">60%</span>, and trace every
@@ -109,7 +109,7 @@ export function Hero() {
                   <span className="font-medium text-slate-300">
                     4,000+ platform teams
                   </span>{" "}
-                  route production traffic through Portico
+                  route production traffic through Model Gateway
                 </p>
               </div>
             </Reveal>

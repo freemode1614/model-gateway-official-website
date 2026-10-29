@@ -11,7 +11,7 @@ import type { Route } from "./+types/$";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "404 — Page not found · Portico" },
+    { title: "404 — Page not found · NCS Model Gateway" },
     { name: "robots", content: "noindex" },
     { name: "theme-color", content: "#eef1f6" },
   ];
@@ -32,7 +32,7 @@ export default function NotFound() {
           <div className="flex items-center justify-between border-b border-rule py-4">
             <SectionTag index="404">Route miss</SectionTag>
             <Label className="hidden sm:block">
-              Portico 3.0 / Decision record
+              Model Gateway 3.0 / Decision record
             </Label>
           </div>
 

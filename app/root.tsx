@@ -15,7 +15,7 @@ import "./app.css";
 // that have not been migrated yet.
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Portico — The model gateway, governed" },
+    { title: "NCS Model Gateway — The model gateway, governed" },
     {
       name: "description",
       content:
@@ -23,7 +23,10 @@ export function meta(_: Route.MetaArgs) {
     },
     { name: "theme-color", content: "#eef1f6" },
     { property: "og:type", content: "website" },
-    { property: "og:title", content: "Portico — The model gateway, governed" },
+    {
+      property: "og:title",
+      content: "NCS Model Gateway — The model gateway, governed",
+    },
     {
       property: "og:description",
       content:
@@ -80,7 +83,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       <div className="w-full max-w-2xl border border-rule bg-paper p-6 sm:p-8">
         <div className="flex items-center justify-between border-b border-rule pb-3">
           <span className="ed-label text-accent">Runtime error</span>
-          <span className="ed-label">Portico / Exception</span>
+          <span className="ed-label">NCS / Exception</span>
         </div>
         <h1 className="ed-display mt-6 text-[clamp(2.5rem,6vw,4.5rem)]">
           {message}

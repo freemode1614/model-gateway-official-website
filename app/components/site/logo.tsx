@@ -7,7 +7,7 @@ export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
       aria-hidden="true"
     >
       <svg viewBox="0 0 24 24" fill="none" className="h-[62%] w-[62%]">
-        <title>Portico</title>
+        <title>NCS</title>
         <path
           d="M4.5 20.5V11a7.5 7.5 0 0 1 15 0v9.5"
           stroke="white"
@@ -38,12 +38,12 @@ export function Logo({
     <Link
       to="/"
       className={`group inline-flex items-center gap-2.5 ${className}`}
-      aria-label="Portico home"
+      aria-label="NCS Model Gateway home"
     >
       <LogoMark />
       {showWordmark && (
         <span className="text-[17px] font-semibold tracking-[-0.02em] text-white">
-          portico
+          ncs
           <span className="text-violet-400 transition-colors group-hover:text-cyan-300">
             .
           </span>

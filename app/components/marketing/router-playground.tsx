@@ -320,7 +320,7 @@ export function RouterPlayground() {
                 <span className="text-gradient-static">make the call</span>.
               </>
             }
-            description="Pick a workload and an optimization goal. This is a live model of Portico's policy engine — the same scoring logic that runs on every production request."
+            description="Pick a workload and an optimization goal. This is a live model of Model Gateway's policy engine — the same scoring logic that runs on every production request."
           />
         </Reveal>
 

@@ -445,7 +445,7 @@ export function SavingsCalculator() {
             </div>
             <div>
               <div className="mb-1.5 flex items-center justify-between font-mono text-[9.5px]">
-                <span className="text-paper/45">With Portico</span>
+                <span className="text-paper/45">With Model Gateway</span>
                 <span className="text-[#e4764f]">{money(routed)}</span>
               </div>
               <div className="h-1.5 bg-paper/15">

@@ -7,13 +7,13 @@ const samples: CodeSample[] = [
     filename: "gateway.ts",
     code: `import OpenAI from "openai";
 
-const portico = new OpenAI({
-  baseURL: "https://api.portico.dev/v1",
-  apiKey: process.env.PORTICO_KEY,
+const gateway = new OpenAI({
+  baseURL: "https://api.ncs.dev/v1",
+  apiKey: process.env.NCS_API_KEY,
 });
 
-const reply = await portico.chat.completions.create({
-  model: "portico/auto", // route by policy, not by hand
+const reply = await gateway.chat.completions.create({
+  model: "ncs/auto", // route by policy, not by hand
   messages: [{ role: "user", content: "Summarize the incident." }],
   stream: true,
 });`,
@@ -23,13 +23,13 @@ const reply = await portico.chat.completions.create({
     filename: "gateway.py",
     code: `from openai import OpenAI
 
-portico = OpenAI(
-    base_url="https://api.portico.dev/v1",
-    api_key=os.environ["PORTICO_KEY"],
+gateway = OpenAI(
+    base_url="https://api.ncs.dev/v1",
+    api_key=os.environ["NCS_API_KEY"],
 )
 
-reply = portico.chat.completions.create(
-    model="portico/auto",  # route by policy, not by hand
+reply = gateway.chat.completions.create(
+    model="ncs/auto",  # route by policy, not by hand
     messages=[{"role": "user", "content": "Summarize the incident."}],
     stream=True,
 )`,
@@ -37,11 +37,11 @@ reply = portico.chat.completions.create(
   {
     label: "cURL",
     filename: "request.sh",
-    code: `curl https://api.portico.dev/v1/chat/completions \\
-  -H "Authorization: Bearer $PORTICO_KEY" \\
+    code: `curl https://api.ncs.dev/v1/chat/completions \\
+  -H "Authorization: Bearer $NCS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "portico/auto",
+    "model": "ncs/auto",
     "messages": [{"role": "user", "content": "Summarize the incident."}],
     "stream": true
   }'`,
@@ -69,7 +69,7 @@ export function CodeSection() {
             <p className="ed-body mt-6 max-w-md">
               Point your existing OpenAI client at{" "}
               <span className="ed-mono text-[0.9em] text-graphite">
-                api.portico.dev
+                api.ncs.dev
               </span>
               . Keep your prompt templates, evals, and streaming UI. The only
               thing that changes is who chooses the model.

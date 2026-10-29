@@ -16,11 +16,11 @@ import type { Route } from "./+types/docs";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Documentation — Portico" },
+    { title: "Documentation — NCS Model Gateway" },
     {
       name: "description",
       content:
-        "Quickstart, routing policies, guardrails, caching, observability, and API reference for the Portico model gateway.",
+        "Quickstart, routing policies, guardrails, caching, observability, and API reference for the NCS Model Gateway.",
     },
   ];
 }
@@ -80,8 +80,8 @@ const firstRequestTabs: CodeSample[] = [
     code: `import OpenAI from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.portico.dev/v1",
-  apiKey: process.env.PORTICO_API_KEY,
+  baseURL: "https://api.ncs.dev/v1",
+  apiKey: process.env.NCS_API_KEY,
 });
 
 const res = await client.chat.completions.create({
@@ -98,8 +98,8 @@ console.log(res.choices[0].message.content);`,
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.portico.dev/v1",
-    api_key=os.environ["PORTICO_API_KEY"],
+    base_url="https://api.ncs.dev/v1",
+    api_key=os.environ["NCS_API_KEY"],
 )
 
 res = client.chat.completions.create(
@@ -112,8 +112,8 @@ print(res.choices[0].message.content)`,
   {
     label: "cURL",
     filename: "request.sh",
-    code: `curl https://api.portico.dev/v1/chat/completions \\
-  -H "Authorization: Bearer $PORTICO_API_KEY" \\
+    code: `curl https://api.ncs.dev/v1/chat/completions \\
+  -H "Authorization: Bearer $NCS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "model": "auto",
@@ -129,9 +129,9 @@ const headersSample: CodeSample[] = [
     label: "headers",
     filename: "headers",
     code: `Authorization: Bearer pk_live_9f2c4a7e21d8
-X-Portico-Tenant: acme-prod
-X-Portico-Policy: support-replies
-X-Portico-Trace: 01J9Z4K7Q2`,
+X-NCS-Tenant: acme-prod
+X-NCS-Policy: support-replies
+X-NCS-Trace: 01J9Z4K7Q2`,
   },
 ];
 
@@ -139,7 +139,7 @@ const envSample: CodeSample[] = [
   {
     label: ".env",
     filename: ".env",
-    code: `PORTICO_API_KEY=pk_live_9f2c4a7e21d8`,
+    code: `NCS_API_KEY=pk_live_9f2c4a7e21d8`,
   },
 ];
 
@@ -169,7 +169,7 @@ const cacheSample: CodeSample[] = [
     code: `const res = await client.chat.completions.create({
   model: "auto",
   messages,
-  portico: {
+  ncs: {
     cache: {
       semantic: true,     // embedding similarity
       threshold: 0.94,    // 0-1
@@ -180,7 +180,7 @@ const cacheSample: CodeSample[] = [
 });
 
 // Cache status is always exposed on the response:
-// X-Portico-Cache: HIT | MISS | BYPASS`,
+// X-NCS-Cache: HIT | MISS | BYPASS`,
   },
 ];
 
@@ -208,10 +208,10 @@ const otelSample: CodeSample[] = [
   {
     label: "env",
     filename: "otel.env",
-    code: `PORTICO_OTEL_EXPORTER=otlp
-PORTICO_OTEL_ENDPOINT=https://otlp.datadoghq.com:4317
-PORTICO_OTEL_HEADERS=dd-api-key=***
-PORTICO_TRACE_SAMPLE_RATE=0.25`,
+    code: `NCS_OTEL_EXPORTER=otlp
+NCS_OTEL_ENDPOINT=https://otlp.datadoghq.com:4317
+NCS_OTEL_HEADERS=dd-api-key=***
+NCS_TRACE_SAMPLE_RATE=0.25`,
   },
 ];
 
@@ -300,7 +300,7 @@ export default function Docs() {
         meta="v3.0 / API stable"
         title={
           <>
-            Build on Portico{" "}
+            Build on NCS Model Gateway{" "}
             <span className="ed-display-italic">in minutes.</span>
           </>
         }
@@ -396,9 +396,9 @@ export default function Docs() {
                 title="Your first routed request"
               >
                 <p>
-                  Portico is a drop-in replacement for the OpenAI API. Install
-                  the SDK if you have not already, set your key, and point the
-                  client at the gateway. No new package, no rewrite.
+                  Model Gateway is a drop-in replacement for the OpenAI API.
+                  Install the SDK if you have not already, set your key, and
+                  point the client at the gateway. No new package, no rewrite.
                 </p>
 
                 <div>
@@ -468,8 +468,8 @@ export default function Docs() {
                 title="Routing policies"
               >
                 <p>
-                  Set <InlineCode>model: &quot;auto&quot;</InlineCode> and
-                  Portico chooses per request. A policy declares the
+                  Set <InlineCode>model: &quot;auto&quot;</InlineCode> and Model
+                  Gateway chooses per request. A policy declares the
                   optimization goal, eligible providers, cost ceiling,
                   fallbacks, and region. Policies are YAML, versioned in Git,
                   and hot-reloaded.
@@ -512,7 +512,7 @@ export default function Docs() {
 
                 <Callout tone="neutral">
                   Need a one-off override? Send{" "}
-                  <InlineCode>X-Portico-Policy</InlineCode> or set{" "}
+                  <InlineCode>X-NCS-Policy</InlineCode> or set{" "}
                   <InlineCode>model</InlineCode> to a concrete model ID. The
                   gateway records the override in the trace.
                 </Callout>
@@ -608,10 +608,14 @@ export default function Docs() {
 
                 <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2">
                   {[
-                    ["TypeScript", "portico", "npm · 14kb tree-shaken"],
-                    ["Python", "portico", "pip · async + sync"],
-                    ["Go", "github.com/portico/portico-go", "go get"],
-                    ["Java", "dev.portico:client", "Maven · GraalVM ready"],
+                    [
+                      "TypeScript",
+                      "ncs-model-gateway",
+                      "npm · 14kb tree-shaken",
+                    ],
+                    ["Python", "ncs-model-gateway", "pip · async + sync"],
+                    ["Go", "github.com/ncs/ncs-model-gateway-go", "go get"],
+                    ["Java", "dev.ncs:client", "Maven · GraalVM ready"],
                   ].map(([name, pkg, detail]) => (
                     <div key={name} className="bg-paper p-4">
                       <p className="text-[12px] font-medium text-graphite">
@@ -633,7 +637,7 @@ export default function Docs() {
                 title="API reference"
               >
                 <p>
-                  Base URL <InlineCode>https://api.portico.dev/v1</InlineCode>.
+                  Base URL <InlineCode>https://api.ncs.dev/v1</InlineCode>.
                   OpenAI-compatible endpoints plus gateway control endpoints.
                 </p>
 
@@ -656,21 +660,9 @@ export default function Docs() {
                         ],
                         ["POST", "/embeddings", "Embeddings with cache"],
                         ["GET", "/models", "Catalog, pricing, availability"],
-                        [
-                          "POST",
-                          "/portico/route",
-                          "Preview a routing decision",
-                        ],
-                        [
-                          "GET",
-                          "/portico/usage",
-                          "Usage and cost by dimension",
-                        ],
-                        [
-                          "GET",
-                          "/portico/traces/:id",
-                          "Inspect a single trace",
-                        ],
+                        ["POST", "/ncs/route", "Preview a routing decision"],
+                        ["GET", "/ncs/usage", "Usage and cost by dimension"],
+                        ["GET", "/ncs/traces/:id", "Inspect a single trace"],
                       ].map(([method, path, purpose]) => (
                         <tr key={path}>
                           <td>

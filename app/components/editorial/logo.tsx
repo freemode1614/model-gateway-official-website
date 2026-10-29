@@ -45,19 +45,26 @@ export function EditorialLogo({
   tone?: "ink" | "paper";
   showMark?: boolean;
 }) {
+  const paper = tone === "paper";
   return (
     <Link
       to="/"
-      aria-label="Portico home"
-      className={`group inline-flex items-end gap-2.5 ${tone === "paper" ? "text-paper" : "text-graphite"} ${className}`}
+      aria-label="NCS Model Gateway home"
+      className={`group inline-flex items-end gap-2.5 ${paper ? "text-paper" : "text-graphite"} ${className}`}
     >
       {showMark && (
         <EditorialMark className="mb-0.5 h-7 w-7 shrink-0 transition-transform duration-500 group-hover:rotate-90" />
       )}
       <span className="font-display text-[27px] font-medium leading-none tracking-[-0.045em]">
-        Portico
+        NCS
       </span>
-      <span className="mb-1 h-1.5 w-1.5 bg-accent" aria-hidden="true" />
+      <span
+        className={`mb-1.5 h-3.5 w-px ${paper ? "bg-paper/30" : "bg-rule"}`}
+        aria-hidden="true"
+      />
+      <span className={`ed-label mb-1 ${paper ? "text-paper/60" : ""}`}>
+        Model Gateway
+      </span>
     </Link>
   );
 }

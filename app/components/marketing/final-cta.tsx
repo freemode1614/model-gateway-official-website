@@ -33,9 +33,9 @@ export function FinalCta() {
                 <span className="text-gradient">Skip the model drama.</span>
               </h2>
               <p className="mx-auto mt-5 max-w-lg text-pretty text-[15px] leading-relaxed text-slate-400">
-                Point your SDK at Portico and get routing, safety, caching, and
-                observability on the next request. Keep the freedom to switch
-                models forever.
+                Point your SDK at NCS Model Gateway and get routing, safety,
+                caching, and observability on the next request. Keep the freedom
+                to switch models forever.
               </p>
 
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

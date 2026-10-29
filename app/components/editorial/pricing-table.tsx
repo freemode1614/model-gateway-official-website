@@ -58,7 +58,7 @@ export function PricingTable() {
           <div className="lg:col-span-3 lg:pt-2">
             <p className="ed-small text-graphite-soft">
               No token markup. No per-seat tax on the platform team. You pay
-              model providers at list price and Portico for the gate.
+              model providers at list price, and NCS for the gate.
             </p>
           </div>
         </div>

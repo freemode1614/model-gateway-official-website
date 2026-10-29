@@ -136,7 +136,9 @@ export function Hero() {
       <Wrap wide className="relative">
         <div className="flex items-center justify-between border-b border-rule py-4">
           <SectionTag index="01">The control plane</SectionTag>
-          <Label className="hidden sm:block">Portico 3.0 / October 2026</Label>
+          <Label className="hidden sm:block">
+            Model Gateway 3.0 / October 2026
+          </Label>
         </div>
 
         <div className="grid gap-12 pb-16 pt-10 lg:grid-cols-12 lg:gap-8 lg:pb-20 lg:pt-14">
@@ -168,9 +170,9 @@ export function Hero() {
               className="ed-body ed-rise mt-8 max-w-[34rem]"
               style={{ animationDelay: "300ms" }}
             >
-              Portico sits between your product and every model you depend on.
-              Route each request by cost, latency, or quality. Enforce policy
-              before inference. Keep the receipt.
+              Model Gateway sits between your product and every model you depend
+              on. Route each request by cost, latency, or quality. Enforce
+              policy before inference. Keep the receipt.
             </p>
 
             <div

@@ -87,7 +87,7 @@ export function FeaturesBento() {
                 <span className="text-gradient-static">every model</span>.
               </>
             }
-            description="Portico replaces a pile of SDK wrappers, retry logic, prompt logs, and spreadsheets with one policy-driven gateway built for production."
+            description="Model Gateway replaces a pile of SDK wrappers, retry logic, prompt logs, and spreadsheets with one policy-driven gateway built for production."
           />
         </Reveal>
 
@@ -96,7 +96,7 @@ export function FeaturesBento() {
             <FeatureCard
               icon={Route}
               title="Semantic routing that thinks in intent"
-              body="Describe the request, not the model. Portico scores every provider on intent fit, cost, latency, and region — then routes to the winner in under 15ms."
+              body="Describe the request, not the model. Model Gateway scores every provider on intent fit, cost, latency, and region — then routes to the winner in under 15ms."
               className="h-full"
             >
               <div className="mt-6 rounded-xl border border-white/[0.07] bg-[#060810]/80 p-3.5">
@@ -175,7 +175,7 @@ export function FeaturesBento() {
                     <span className="text-sky-300">OpenAI</span> {"{"}
                     {"\n  "}baseURL:{" "}
                     <span className="text-emerald-300">
-                      &quot;https://api.portico.dev/v1&quot;
+                      &quot;https://api.ncs.dev/v1&quot;
                     </span>
                     ,{"\n  "}model:{" "}
                     <span className="text-emerald-300">&quot;auto&quot;</span>
@@ -203,7 +203,7 @@ export function FeaturesBento() {
             <FeatureCard
               icon={Zap}
               title="Failover you never notice"
-              body="Rate limits, 5xx storms, regional outages. Portico retries, reroutes, and hedges requests in under 50ms."
+              body="Rate limits, 5xx storms, regional outages. Model Gateway retries, reroutes, and hedges requests in under 50ms."
               tint="amber"
               className="h-full"
             >

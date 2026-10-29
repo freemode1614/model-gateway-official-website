@@ -2,7 +2,7 @@ import { FaqBlock } from "./faq-block";
 
 const questions = [
   {
-    q: "Is Portico a proxy or a library?",
+    q: "Is Model Gateway a proxy or a library?",
     a: "Neither, exactly. It is a gateway process that sits in your request path. You call it with the OpenAI SDK; it authenticates, evaluates policy, picks a provider, and records the result. No sidecar and no client library required.",
   },
   {
@@ -11,7 +11,7 @@ const questions = [
   },
   {
     q: "Can we run it in our VPC?",
-    a: "Yes. The same binary runs on our edge, in your VPC, or on-prem. Enterprise deployments use your object storage and your keys; Portico never needs a copy of your traffic.",
+    a: "Yes. The same binary runs on our edge, in your VPC, or on-prem. Enterprise deployments use your object storage and your keys; Model Gateway never needs a copy of your traffic.",
   },
   {
     q: "How does routing decide?",

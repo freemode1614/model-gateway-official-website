@@ -18,7 +18,7 @@ const modes: {
     label: "Route",
     icon: Route,
     caption:
-      "Portico parses intent and scores every eligible model against your policy — cost ceiling, latency SLO, region, and quality floor — then picks the best fit in 12ms.",
+      "Model Gateway parses intent and scores every eligible model against your policy — cost ceiling, latency SLO, region, and quality floor — then picks the best fit in 12ms.",
   },
   {
     id: "protect",
@@ -78,9 +78,9 @@ export function Architecture() {
                 out.
               </h2>
               <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-slate-400">
-                Your app talks to one endpoint. Portico handles auth, routing,
-                retries, caching, safety, and telemetry — so your product team
-                ships features instead of plumbing.
+                Your app talks to one endpoint. Model Gateway handles auth,
+                routing, retries, caching, safety, and telemetry — so your
+                product team ships features instead of plumbing.
               </p>
             </Reveal>
 
@@ -144,7 +144,7 @@ export function Architecture() {
                     viewBox="0 0 720 460"
                     className="h-auto w-full min-w-[520px]"
                     role="img"
-                    aria-label="Architecture diagram: applications call the Portico gateway, which routes to model providers and streams telemetry."
+                    aria-label="Architecture diagram: applications call the NCS Model Gateway, which routes to model providers and streams telemetry."
                   >
                     <defs>
                       <linearGradient id="coreGrad" x1="0" y1="0" x2="1" y2="1">
@@ -332,7 +332,7 @@ export function Architecture() {
                         textAnchor="middle"
                         letterSpacing="1.4"
                       >
-                        PORTICO
+                        MODEL GATEWAY
                       </text>
 
                       {[

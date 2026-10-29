@@ -55,9 +55,9 @@ export function FinalCta() {
 
         <div className="flex flex-col justify-between gap-3 border-t border-paper/15 py-4 sm:flex-row sm:items-center">
           <Label className="text-paper/35">
-            Portico Systems, Inc. · San Francisco / New York
+            NCS · San Francisco / New York
           </Label>
-          <Label className="text-paper/35">hello@portico.dev</Label>
+          <Label className="text-paper/35">hello@ncs.dev</Label>
         </div>
       </Wrap>
     </section>

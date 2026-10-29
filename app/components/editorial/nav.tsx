@@ -30,8 +30,8 @@ export function EditorialNav() {
     <>
       <div className="border-b border-rule">
         <Wrap wide className="flex h-9 items-center justify-between gap-4">
-          <Label className="sm:hidden">Portico</Label>
-          <Label className="hidden sm:block">Portico Systems, Inc.</Label>
+          <Label className="sm:hidden">NCS</Label>
+          <Label className="hidden sm:block">NCS Model Gateway</Label>
           <div className="hidden items-center gap-7 md:flex">
             <Label>Model gateway / 2026</Label>
             <Label>San Francisco · New York</Label>
@@ -145,7 +145,7 @@ export function EditorialNav() {
             </div>
 
             <div className="mt-auto grid gap-2 pt-12">
-              <Label>hello@portico.dev</Label>
+              <Label>hello@ncs.dev</Label>
               <Label>San Francisco · New York</Label>
               <span className="mt-2 flex items-center gap-2">
                 <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />

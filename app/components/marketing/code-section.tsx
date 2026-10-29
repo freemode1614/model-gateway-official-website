@@ -13,15 +13,15 @@ const tabs: CodeTab[] = [
     code: `import OpenAI from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.portico.dev/v1",
-  apiKey: process.env.PORTICO_API_KEY,
+  baseURL: "https://api.ncs.dev/v1",
+  apiKey: process.env.NCS_API_KEY,
 });
 
 const stream = await client.chat.completions.create({
-  model: "auto", // Portico picks the best model
+  model: "auto", // Model Gateway picks the best model
   messages: [{ role: "user", content: "Summarize this contract" }],
   stream: true,
-  portico: {
+  ncs: {
     policy: "cost-aware",
     fallback: ["gpt-5.2-mini", "gemini-3-flash"],
     cache: "semantic",
@@ -41,8 +41,8 @@ for await (const chunk of stream) {
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.portico.dev/v1",
-    api_key=os.environ["PORTICO_API_KEY"],
+    base_url="https://api.ncs.dev/v1",
+    api_key=os.environ["NCS_API_KEY"],
 )
 
 stream = client.chat.completions.create(
@@ -50,7 +50,7 @@ stream = client.chat.completions.create(
     messages=[{"role": "user", "content": "Summarize this contract"}],
     stream=True,
     extra_body={
-        "portico": {
+        "ncs": {
             "policy": "cost-aware",
             "fallback": ["gpt-5.2-mini", "gemini-3-flash"],
             "cache": "semantic",
@@ -65,23 +65,23 @@ for chunk in stream:
     label: "cURL",
     filename: "request.sh",
     language: "bash",
-    code: `curl https://api.portico.dev/v1/chat/completions \\
-  -H "Authorization: Bearer $PORTICO_API_KEY" \\
+    code: `curl https://api.ncs.dev/v1/chat/completions \\
+  -H "Authorization: Bearer $NCS_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "model": "auto",
     "messages": [
-      { "role": "user", "content": "Hello, Portico" }
+      { "role": "user", "content": "Hello, NCS" }
     ],
-    "portico": {
+    "ncs": {
       "policy": "balanced",
       "cache": "semantic"
     }
   }'`,
   },
   {
-    label: "portico.yaml",
-    filename: "portico.yaml",
+    label: "ncs.yaml",
+    filename: "ncs.yaml",
     language: "yaml",
     code: `# Reviewed in Git, deployed in seconds
 routes:
@@ -134,8 +134,8 @@ export function CodeSection() {
               </h2>
               <p className="mt-5 max-w-md text-[15px] leading-relaxed text-slate-400">
                 No proxy to babysit, no new SDK to learn. Point your existing
-                OpenAI client at Portico and get routing, safety, caching, and
-                observability on your very next request.
+                OpenAI client at NCS Model Gateway and get routing, safety,
+                caching, and observability on your very next request.
               </p>
 
               <ul className="mt-7 grid gap-3">

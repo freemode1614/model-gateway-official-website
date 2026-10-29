@@ -120,7 +120,7 @@ export function SiteFooter() {
                   }
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`Portico on ${name === "x" ? "X" : name === "github" ? "GitHub" : "LinkedIn"}`}
+                  aria-label={`NCS on ${name === "x" ? "X" : name === "github" ? "GitHub" : "LinkedIn"}`}
                   className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition-all hover:border-white/25 hover:text-white"
                 >
                   <SocialIcon name={name} />
@@ -198,7 +198,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/[0.07] pt-6 text-xs text-slate-500 sm:flex-row sm:items-center">
-          <p>© 2026 Portico Systems, Inc. All rights reserved.</p>
+          <p>© 2026 NCS. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-5">
             <Link to="/company#security" className="hover:text-slate-300">
               Privacy
@@ -221,7 +221,7 @@ export function SiteFooter() {
         className="pointer-events-none select-none overflow-hidden text-center"
       >
         <span className="block translate-y-[18%] text-[18vw] font-semibold leading-none tracking-[-0.06em] text-white/[0.025]">
-          PORTICO
+          NCS
         </span>
       </div>
     </footer>

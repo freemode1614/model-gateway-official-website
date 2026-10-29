@@ -13,7 +13,7 @@ import type { Route } from "./+types/platform";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Platform — Portico" },
+    { title: "Platform — NCS Model Gateway" },
     {
       name: "description",
       content:
@@ -395,7 +395,7 @@ const capabilities: Capability[] = [
         <span className="ed-display-italic">not by guesswork.</span>
       </>
     ),
-    body: "Portico scores every eligible model against your declared policy: task fit, price ceiling, latency SLO, region, and context window. The winner gets the request. The rest stay warm as fallbacks.",
+    body: "Model Gateway scores every eligible model against your declared policy: task fit, price ceiling, latency SLO, region, and context window. The winner gets the request. The rest stay warm as fallbacks.",
     points: [
       "Quality, cost, speed, and region constraints in one policy",
       "Per-tenant and per-customer routing rules",
@@ -516,16 +516,16 @@ const integrations = [
 
 const platformFaqs = [
   {
-    q: "Is Portico a proxy, or something I install?",
+    q: "Is Model Gateway a proxy, or something I install?",
     a: "Both. The managed gateway runs on our edge. Enterprise customers can deploy the same control plane inside their VPC, on-prem, or fully air-gapped. It sits in the request path and adds roughly 12 ms median overhead.",
   },
   {
     q: "Do I have to change my application code?",
-    a: "No. Portico is OpenAI-compatible: keep your SDK, swap the base URL, and set model to auto — or pin a specific model. Streaming, tool calls, embeddings, and vision inputs work unchanged.",
+    a: "No. Model Gateway is OpenAI-compatible: keep your SDK, swap the base URL, and set model to auto — or pin a specific model. Streaming, tool calls, embeddings, and vision inputs work unchanged.",
   },
   {
     q: "Which providers and models are supported?",
-    a: "120+ models across OpenAI, Anthropic, Google Vertex, Azure OpenAI, AWS Bedrock, Meta, Mistral, Cohere, DeepSeek, and self-hosted vLLM or Ollama. Bring your own keys or use Portico-provisioned capacity.",
+    a: "120+ models across OpenAI, Anthropic, Google Vertex, Azure OpenAI, AWS Bedrock, Meta, Mistral, Cohere, DeepSeek, and self-hosted vLLM or Ollama. Bring your own keys or use NCS-provisioned capacity.",
   },
   {
     q: "Where does my data go?",
@@ -533,7 +533,7 @@ const platformFaqs = [
   },
   {
     q: "How fast is failover, really?",
-    a: "Median reroute is 31 ms. Portico watches provider health, rate-limit headers, and error rates per region, then retries, hedges, or fails over to your fallback list.",
+    a: "Median reroute is 31 ms. Model Gateway watches provider health, rate-limit headers, and error rates per region, then retries, hedges, or fails over to your fallback list.",
   },
   {
     q: "Can I run evaluations and A/B tests?",
@@ -707,7 +707,7 @@ export default function Platform() {
               No rip <span className="ed-display-italic">and replace.</span>
             </>
           }
-          intro="Portico slots into the identity, observability, and data tools your platform team already trusts."
+          intro="Model Gateway slots into the identity, observability, and data tools your platform team already trusts."
         />
 
         <div className="mt-10 grid grid-cols-2 border-l border-t border-rule sm:grid-cols-3 lg:grid-cols-4">

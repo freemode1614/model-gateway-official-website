@@ -91,7 +91,7 @@ export function HeroConsole() {
               <span className="h-2 w-2 rounded-full bg-white/15" />
             </div>
             <span className="ml-1 font-mono text-[10.5px] text-slate-500">
-              portico · live-router
+              ncs · live-router
             </span>
             <span className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-acid/20 bg-acid/10 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-wider text-acid">
               <span className="h-1 w-1 rounded-full bg-acid animate-pulse-soft" />

@@ -117,9 +117,7 @@ export function EditorialFooter() {
           wide
           className="flex flex-col gap-4 py-5 text-[11px] text-quiet sm:flex-row sm:items-center sm:justify-between"
         >
-          <p className="ed-mono">
-            © 2026 Portico Systems, Inc. · SOC 2 Type II · HIPAA · GDPR
-          </p>
+          <p className="ed-mono">© 2026 NCS · SOC 2 Type II · HIPAA · GDPR</p>
 
           <div className="flex flex-wrap items-center gap-5">
             <Link to="/company#security" className="hover:text-accent">

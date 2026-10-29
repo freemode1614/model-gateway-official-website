@@ -5,7 +5,7 @@ import { Reveal } from "./reveal";
 const testimonials = [
   {
     quote:
-      "We replaced 1,400 lines of retry, fallback, and logging code with a 40-line Portico policy. p95 dropped 31% and our model bill dropped 44% in the first month.",
+      "We replaced 1,400 lines of retry, fallback, and logging code with a 40-line Model Gateway policy. p95 dropped 31% and our model bill dropped 44% in the first month.",
     name: "Maya Chen",
     role: "VP Platform",
     company: "Northwind",
@@ -14,7 +14,7 @@ const testimonials = [
   },
   {
     quote:
-      "The first time a provider had a regional outage, nobody on my team noticed. Portico rerouted 2.1M requests before our status page even updated.",
+      "The first time a provider had a regional outage, nobody on my team noticed. Model Gateway rerouted 2.1M requests before our status page even updated.",
     name: "Jonas Weber",
     role: "Head of AI",
     company: "VELTRIX",
@@ -49,7 +49,7 @@ export function Testimonials() {
                 <span className="text-gradient-static">pager is on</span>.
               </>
             }
-            description="Platform teams choose Portico for the same reason they choose a database: it has to be boringly reliable at 3am."
+            description="Platform teams choose Model Gateway for the same reason they choose a database: it has to be boringly reliable at 3am."
           />
         </Reveal>
 

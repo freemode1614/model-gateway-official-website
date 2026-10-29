@@ -101,7 +101,7 @@ function SprawlDiagram() {
             letterSpacing="1.2"
             opacity="0.6"
           >
-            WITH PORTICO
+            WITH NCS GATE
           </text>
 
           <rect x="0" y="222" width="70" height="32" />
@@ -229,7 +229,7 @@ export function Problem() {
                 You can’t govern what you didn’t route through.
               </p>
               <footer className="mt-3">
-                <Label>Working principle · Portico engineering</Label>
+                <Label>Working principle · NCS engineering</Label>
               </footer>
             </blockquote>
 

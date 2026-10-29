@@ -133,7 +133,7 @@ function Diagram({ active }: { active: PathId }) {
       viewBox="0 0 1120 460"
       className="w-full min-w-[760px]"
       role="img"
-      aria-label="Portico request lifecycle: client, gateway policy, model providers, and telemetry."
+      aria-label="Model Gateway request lifecycle: client, gateway policy, model providers, and telemetry."
     >
       <defs>
         <marker
@@ -227,7 +227,7 @@ function Diagram({ active }: { active: PathId }) {
         fontSize="8"
         fontFamily="var(--font-mono)"
       >
-        api.portico.dev
+        api.ncs.dev
       </text>
 
       {/* Client -> Gate */}
@@ -258,7 +258,7 @@ function Diagram({ active }: { active: PathId }) {
         letterSpacing="1.3"
         fontFamily="var(--font-mono)"
       >
-        PORTICO GATE
+        NCS GATE
       </text>
       <text
         x="326"

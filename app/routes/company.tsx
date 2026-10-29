@@ -13,11 +13,11 @@ import type { Route } from "./+types/company";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Company — Portico" },
+    { title: "Company — NCS" },
     {
       name: "description",
       content:
-        "Portico is building the neutral control plane for production AI. Meet the team, values, and the road that got us here.",
+        "NCS is building the neutral control plane for production AI. Meet the team, values, and the road that got us here.",
     },
   ];
 }
@@ -181,7 +181,7 @@ export default function Company() {
       <PageHero
         index="01"
         label="Company"
-        meta="Portico / 2026"
+        meta="NCS / 2026"
         title={
           <>
             The neutral layer for{" "}
@@ -236,10 +236,10 @@ export default function Company() {
               products.
             </p>
             <p className="ed-body">
-              Portico exists so teams can treat models like any other
-              infrastructure dependency: versioned, observable, governed, and
-              replaceable. We are not a model company. We are the neutral layer
-              that lets you use all of them.
+              NCS exists so teams can treat models like any other infrastructure
+              dependency: versioned, observable, governed, and replaceable. We
+              are not a model company. We are the neutral layer that lets you
+              use all of them.
             </p>
           </div>
         </div>
@@ -376,7 +376,7 @@ export default function Company() {
               <span className="ed-display-italic">in the path.</span>
             </>
           }
-          intro="4,000+ teams route production traffic through Portico. These are some of the names we can talk about."
+          intro="4,000+ teams route production traffic through Model Gateway. These are some of the names we can talk about."
         />
 
         <div className="mt-10 grid grid-cols-2 border-l border-t border-rule sm:grid-cols-3 lg:grid-cols-4">

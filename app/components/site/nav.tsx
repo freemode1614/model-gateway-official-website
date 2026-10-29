@@ -165,7 +165,7 @@ export function SiteNav() {
           </span>
           <p className="truncate text-[11.5px] text-slate-400 sm:text-xs">
             <span className="font-medium text-slate-200">
-              Portico 3.0 is here
+              Model Gateway 3.0 is here
             </span>
             <span className="hidden sm:inline">
               {" "}

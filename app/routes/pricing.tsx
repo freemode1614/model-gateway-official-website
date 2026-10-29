@@ -18,11 +18,11 @@ import type { Route } from "./+types/pricing";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Pricing — Portico" },
+    { title: "Pricing — NCS Model Gateway" },
     {
       name: "description",
       content:
-        "Traffic-based pricing for the Portico model gateway. No token markup, no per-seat tax, and the full gateway on every plan.",
+        "Traffic-based pricing for the NCS Model Gateway. No token markup, no per-seat tax, and the full gateway on every plan.",
     },
   ];
 }
@@ -45,7 +45,7 @@ const pricingFaqs = [
   },
   {
     q: "Do you mark up model usage?",
-    a: "No. You pay providers at list price, or at the rate you negotiated directly with them. Portico charges for the gateway, never for the meter.",
+    a: "No. You pay providers at list price, or at the rate you negotiated directly with them. NCS charges for the gateway, never for the meter.",
   },
   {
     q: "What happens when we outgrow a plan?",

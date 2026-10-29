@@ -12,11 +12,11 @@ import type { Route } from "./+types/contact";
 
 export function meta(_: Route.MetaArgs) {
   return [
-    { title: "Contact — Portico" },
+    { title: "Contact — NCS" },
     {
       name: "description",
       content:
-        "Talk to the Portico team about routing, guardrails, enterprise deployment, or a security review.",
+        "Talk to the NCS team about routing, guardrails, enterprise deployment, or a security review.",
     },
   ];
 }
@@ -118,8 +118,8 @@ export default function Contact() {
                     <p className="mt-4 max-w-sm text-[13px] leading-relaxed text-graphite-soft">
                       A solutions engineer will reply within one business day.
                       If it is urgent, email{" "}
-                      <a href="mailto:sales@portico.dev" className="ed-link">
-                        sales@portico.dev
+                      <a href="mailto:sales@ncs.dev" className="ed-link">
+                        sales@ncs.dev
                       </a>
                       .
                     </p>
@@ -263,13 +263,9 @@ export default function Contact() {
                   <Label>Direct lines</Label>
                   <div className="mt-3">
                     {[
-                      ["Sales", "sales@portico.dev", "Within 1 business day"],
-                      [
-                        "Support",
-                        "support@portico.dev",
-                        "Within 1 hour (Scale+)",
-                      ],
-                      ["Security", "security@portico.dev", "Within 4 hours"],
+                      ["Sales", "sales@ncs.dev", "Within 1 business day"],
+                      ["Support", "support@ncs.dev", "Within 1 hour (Scale+)"],
+                      ["Security", "security@ncs.dev", "Within 4 hours"],
                     ].map(([label, email, sla]) => (
                       <div
                         key={label}

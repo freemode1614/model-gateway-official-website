@@ -18,7 +18,7 @@ const notes = [
   {
     index: "03",
     quote:
-      "Portico is the only vendor that didn’t ask us to move our data. The gate sits in our VPC.",
+      "NCS is the only vendor that didn’t ask us to move our data. The gate sits in our VPC.",
     name: "Priya Raman",
     role: "CTO, Ledgerline",
   },
@@ -40,8 +40,8 @@ export function FieldNotes() {
           </div>
           <div className="lg:col-span-3 lg:pt-2">
             <p className="ed-small text-graphite-soft">
-              Three accounts from teams running production traffic through
-              Portico. Names and numbers are theirs; the mistakes were ours.
+              Three accounts from teams running production traffic through Model
+              Gateway. Names and numbers are theirs; the mistakes were ours.
             </p>
           </div>
         </div>

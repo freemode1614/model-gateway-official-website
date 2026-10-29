@@ -1,6 +1,6 @@
-# Portico — Model Gateway Marketing Site
+# NCS Model Gateway — Official Website
 
-An editorial marketing site for **Portico**, a fictional enterprise model gateway.
+An editorial marketing site for **NCS Model Gateway**, an enterprise model gateway.
 Warm paper, ink, one vermilion accent, numbered sections, hairline rules, and technical
 figures — built on the React Router v8 + fs-routes SPA template documented below.
 
